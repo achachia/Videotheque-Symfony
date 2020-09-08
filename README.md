@@ -15,6 +15,32 @@
 
 4. Lancer le serveur :
 
-  4.1 $ php bin/console server:run
+  4.1 $ php bin/console server:run  ||    symfony server:start
 
-    
+5. Modifier le charset de database (Mysql ) en cas il'a une erreur de commande SQL:
+
+    5.1 Modifier le fichier    config\packages\doctrine.yaml
+
+           remplacer le code suivant :
+
+             charset: utf8mb4
+            default_table_options:
+                               collate: utf8mb4_unicode_ci
+
+
+           par :
+
+            charset: utf8
+            default_table_options:
+                          collate: utf8_unicode_ci                    
+
+6. installer le composant symfony/twig-bundle :
+
+     6.1 $ composer require symfony/twig-bundle  
+
+
+7. Activer les annotations  :
+
+     7.1 installer    $ composer require symfony/validator
+
+     7.2 installer  $ composer require symfony/security-bundle 
