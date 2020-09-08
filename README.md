@@ -1,13 +1,20 @@
 1. Création le projet avec la commande 
 
-  $ symfony new   videotheque
+  1.1 $ symfony new   videotheque
 
-2. Installer un serveur de développement
+2. Installer le package Doctrine :
 
-  $ composer req server
+  2.1 $ composer require doctrine  // installation 
 
-3. Installer le package Doctrine :
+  2.2  modification URL de database   .env  
 
-  $ composer require doctrine
+3. Installer un serveur de développement
+
+  3.1 $ composer req server
+
+
+4. Lancer le serveur :
+
+  4.1 $ php bin/console server:run
 
     
