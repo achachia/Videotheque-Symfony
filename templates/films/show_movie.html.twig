@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer un film!{% endblock %}
+{% block title %}Fiche infos  film [{{film.title}}]{% endblock %}
 
 {% block body %}
 
@@ -29,25 +29,32 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">detail un film</h1>
+            <h1 class="h3 mb-0 text-gray-800">Fiche infos  film [{{film.title}}]</h1>
            
           </div>
 
-          <!-- Content Row -->
-          <div class="row">   
+          <div class="row"  style="text-align:center">
+             <div class="col-sm-12 col-md-12">
+                                 <div class="thumbnail">
+                                            {% if film.picture %}
 
-          
-           <ul>
-        
-               <li>ID-Film : {{film.id}}</li>
+                                                <img src="{{ asset('uploads/' ~ film.picture) }}" class="responsive-img"  style="width:30%">                         
 
-               <li>Titre-Film : {{film.title}}</li>
-       
-           </ul>
+                                             {% else %}
 
+                                                 <img src="{{ asset('dist/img/movie.jpg') }}" class="responsive-img"  style="width:30%">
 
-           </div>
-        <!-- /.container-fluid -->
+                                             {% endif %}
+
+                                          <div class="caption" style="margin-top:3%">
+                                              <h3>Titre : {{film.title}}</h3>
+                                              <p>Resumé : {{film.resume}}</p>
+                                             
+                                          </div>
+                                  </div>
+                </div>
+          </div>
+         
 
       </div>
       <!-- End of Main Content -->

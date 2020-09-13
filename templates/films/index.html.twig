@@ -44,7 +44,7 @@
            <div class="row"  style="margin-top :5%;margin-left:5%">
 
 
-             <table BORDER=1>
+             <table class="table table-bordered" style="text-align:center">
 
                <head>
 
@@ -52,18 +52,34 @@
 
                                   <td>ID</td>
 
+                                  <td>PICTURE</td> 
+
                                   <td>NOM</td> 
 
                                   <td>ACTION</td>                 
                               </tr>
 
                </head>
+               
                <body>
 
                  {% for film in films %}
+
                     <tr>
-                         <td><a href="{{ path('film_show',{'id': film.id}) }}">{{ film.id }}</a></td>                   
-                         <td><a href="{{ path('film_show',{'id': film.id}) }}">{{ film.title }}</a></td>  
+
+                         <td><a href="{{ path('film_show',{'id': film.id}) }}">{{ film.id }}</a></td>
+
+                           {% if film.picture %}
+
+                          <td><img src="{{ asset('uploads/' ~ film.picture) }}" class="responsive-img"  style="width:30%"></td>                          
+
+                          {% else %}
+
+                               <td><img src="{{ asset('dist/img/movie.jpg') }}" class="responsive-img"  style="width:30%"></td>
+
+                          {% endif %}
+
+                         <td><a href="{{ path('film_show',{'id': film.id}) }}">{{ film.title }}</a></td> 
 
 
 
@@ -84,6 +100,7 @@
                              
                         </td>          
                     </tr>
+
                  {% endfor %}         
 
                </body>

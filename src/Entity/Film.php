@@ -31,6 +31,16 @@ class Film
      */
     private $resume; 
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
+
+    /**
+    * @ORM\Column(type="datetime", nullable=true)
+    */
+   private $lastUpdateDate;
+
     
 
     public function getId(): int
@@ -60,6 +70,30 @@ class Film
     public function setResume(string $resume): self
     {
         $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getLastUpdateDate()
+    {
+        return $this->lastUpdateDate;
+    }
+
+    public function setLastUpdateDate(\DateTimeInterface $lastUpdateDate): self
+    {
+        $this->lastUpdateDate = $lastUpdateDate;
 
         return $this;
     }

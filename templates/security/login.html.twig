@@ -7,16 +7,12 @@
         <h1>Espace Connexion</h1>
         <form method="post" class="">
             {% if error %}
-                <div class="col s12 m6 l6 offset-m3 offset-l3">
-                    <span class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+               <div class="alert alert-danger alert-dismissible" role="alert">
+                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   <strong>Warning!</strong> {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
-            {% endif %}
-
-            {% if app.user %}
-                <div class="col s12 m6 l6 offset-m3 offset-l3">
-                    Tu es actuellement connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnecte-toi</a>
-                </div>
-            {% endif %}
+            
+            {% endif %}          
 
 
              <div class="form-group">

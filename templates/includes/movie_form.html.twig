@@ -1,33 +1,30 @@
-
-
 {{ form_start(form, {'attr': {'class': ''}}) }}
 	
 
+	 <div class="form-group">
+	    {{ form_label(form.title, 'Le titre de votre film') }}
+		{{ form_widget(form.title, {'attr': {'class':'form-control','placeholder': 'Titre de film'}}) }}
+		
+		<span class="error">{{ form_errors(form.title) }}</span>
+	</div>
 
-	  <!--  {{ form_label(form.title, 'Le titre de votre film') }} 
-		{{ form_widget(form.title, {'attr': {'placeholder': 'Titre de film'}}) }}-->
-	  <!--	{{ form_label(form.resume, 'Le resume de votre film') }} 
-		{{ form_widget(form.resume, {'attr': {'placeholder': 'Resume de film'}}) }}-->	
+	 <div class="form-group">
+	    {{ form_label(form.resume, 'Le resume de votre film') }}
+		{{ form_widget(form.resume, {'attr': {'class':'form-control','placeholder': 'Resume de film'}}) }}
+		
+		<span class="error">{{ form_errors(form.resume) }}</span>
+	</div>
 
-	   <div class="form-group">
-                <label for="titre">Titre</label>
-                <input type="text" id="film_title" name="film[title]" required="required" placeholder="Titre de film"  class="form-control"  value="{{film.title}}"/>
+	 <div class="form-group">
 
-				<span class="error">{{ form_errors(form.title) }}</span>
-               
-       </div>
-
-	    <div class="form-group">
-                <label for="resume">Resume</label>
-               <textarea id="film_resume" name="film[resume]" placeholder="Resume de film" class="form-control" value="{{film.resume}}"></textarea>
-			   <span class="error">{{ form_errors(form.resume) }}</span>
-        </div> 
+	  
+		{{ form_widget(form.picture) }}
+	</div>
 
 
-	<div class="form-group">
+	 <div class="form-group">
 		<input type="submit" name="" value="Enregistrer" class="btn btn-primary">
 	</div>
- 
+
 	
 {{ form_end(form) }}
-

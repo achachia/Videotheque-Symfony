@@ -9,9 +9,20 @@ use App\Form\FilmType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class FilmsController extends Controller
 {
+
+    public $route;
+
+    public function __construct(RequestStack $requestStack) {
+       
+
+        $this->route = $requestStack->getCurrentRequest()->get('_route');
+
+        // var_dump($this->route);
+    }
     /**
      * @Route("/films", name="films")
      */
@@ -21,6 +32,8 @@ class FilmsController extends Controller
        $this->denyAccessUnlessGranted('ROLE_USER');         
 
        $films = $this->getDoctrine()->getRepository(Film::class)->findAll();
+
+       
 
        if ($this->getUser()) {
        
@@ -72,6 +85,8 @@ class FilmsController extends Controller
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');  
 
+      
+
         $film = new Film();
 
         $form = $this->createForm(FilmType::class, $film);
@@ -83,6 +98,24 @@ class FilmsController extends Controller
         $film->setTitle($film->getTitle());
 
         $film->setResume($film->getResume());
+       
+
+        if ($film->getPicture() !== null) {
+
+            $file = $form->get('picture')->getData();
+
+            $fileName = uniqid(). '.' .$file->guessExtension();
+
+            try {
+
+                $file->move($this->getParameter('images_directory'),$fileName);
+
+            } catch (FileException $e) {
+                return new Response($e->getMessage());
+            }
+
+            $film->setPicture($fileName);
+        }
 
         $em = $this->getDoctrine()->getManager();
 
@@ -115,6 +148,10 @@ class FilmsController extends Controller
 
         $film = $this->getDoctrine()->getRepository(Film::class)->find($id);
 
+        $oldPicture = $film->getPicture(); 
+
+        var_dump($oldPicture);
+
         $form = $this->createForm(FilmType::class, $film);
 
         $form->handleRequest($request);
@@ -125,6 +162,32 @@ class FilmsController extends Controller
         $film->setTitle($film->getTitle());
 
         $film->setResume($film->getResume());
+
+        $film->setLastUpdateDate(new \DateTime());
+
+        
+
+        if ($film->getPicture() !== null && $film->getPicture() !== $oldPicture) {
+
+            $file = $form->get('picture')->getData();
+
+            $fileName = uniqid(). '.' .$file->guessExtension();
+
+            try {
+
+                $file->move($this->getParameter('images_directory'),$fileName);
+
+            } catch (FileException $e) {
+
+                return new Response($e->getMessage());
+            }
+
+            $film->setPicture($fileName);
+
+        } else {           
+
+            $film->setPicture($oldPicture);
+        }
 
         $em = $this->getDoctrine()->getManager();
 
